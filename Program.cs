@@ -3,13 +3,11 @@ using System;
 using System.Collections.Generic;
 using ValidadorUsuario;
 using calculoImpuestos;
+using calculo_amortizacion;
 // Enlace para el archivo donde se encuentra la tarea: https://drive.google.com/drive/folders/1P1jG2SzkiCPs1aCVluQhC3Ql6_NEIZcl
 
 
 // Aquí se encuentra el programa principal para toda la ejecución del proyecto.
-
-
-
 
 
 
@@ -26,7 +24,7 @@ class Program
         {
             Console.WriteLine("Ingresa tu usuario");
             string nombreUsuario = Console.ReadLine().ToLower();
-
+            Console.WriteLine("---");
             Console.WriteLine("Ingresa tu contraseña");
             string contraseñaUsuario = Console.ReadLine().ToLower();
 
@@ -41,6 +39,7 @@ class Program
             while(cerrarPrograma == false)
             {
                 Console.WriteLine("¿Que quieres hacer?");
+                Console.WriteLine("---");
                 Console.WriteLine("Pon '1' si quieres meter productos y calcular el IVA");
                 Console.WriteLine("Pon '2' si quieres calcular la amortización de un prestamo");
                 Console.WriteLine("Pon '3' si quieres cerrar el programa");
@@ -51,13 +50,17 @@ class Program
                     switch (eleccionUsuario)
                     {
                         case 1:
-                            calcular_impuesto miCalculadoraImpuesto = new calcular_impuesto();
+                            Calcular_impuesto miCalculadoraImpuesto = new Calcular_impuesto();
                             miCalculadoraImpuesto.calculoImpuestos();
-                            
+                            Console.WriteLine("Programma de calculo de impuestos cerrado");
+                            Console.WriteLine("---");
                             break;
 
                         case 2:
-                            Console.WriteLine("Has seleccionado 2");
+                            CalculoAmortizacion calculoAmortizacion = new CalculoAmortizacion();
+                            calculoAmortizacion.calculoAmortizacionUsuario();
+                            Console.WriteLine("Programa de calculo de amortización cerrado");
+                            Console.WriteLine("---");
                             break;
 
                         case 3:
@@ -75,7 +78,7 @@ class Program
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Ha ocurrido un error inesperado {ex.Message}");
+                    Console.WriteLine($"Ha ocurrido un error inesperado {ex.Message}, vuelve a colocar un número del 1 al 3");
                 } 
                 
 

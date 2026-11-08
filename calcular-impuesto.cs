@@ -10,7 +10,7 @@ using System.Text;
 
 namespace calculoImpuestos
 {
-    public class calcular_impuesto
+    public class Calcular_impuesto
     {
         public void calculoImpuestos()
         {
@@ -18,7 +18,7 @@ namespace calculoImpuestos
 
             // Creamos un diccionario para almacenar los productos, sus precios y cantidades, no lo hacemos dentro del while porque si no los datos se pierden
 
-            Dictionary<string, (float precio, int cantidad)> listaProductos = new Dictionary<string, (float precio, int cantidad)>(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, (double precio, int cantidad)> listaProductos = new Dictionary<string, (double precio, int cantidad)>(StringComparer.OrdinalIgnoreCase);
 
             // Debemos de asegurarnos de varias cosas:
             // 1: que el usuario pueda meter los productos y su precio que desea
@@ -33,18 +33,21 @@ namespace calculoImpuestos
                 
                 Console.WriteLine($"Introduce el nombre de un nuevo producto");
                 string nombreProducto = Console.ReadLine();
-                
-                if(!listaProductos.TryGetValue(nombreProducto, out var datosExistentesProductos))
+             
+
+                if (!listaProductos.TryGetValue(nombreProducto, out var datosExistentesProductos))
                 {
                     contadorProducto++;
-                    float precioProducto = 0.00f;
+                    double precioProducto = 0.00;
                     bool precioValido = false;
                     while (precioValido == false)
                     {
                         try
                         {
+                            
                             Console.WriteLine($"Introduce el precio del producto {contadorProducto}");
-                            precioProducto = float.Parse(Console.ReadLine());
+                            precioProducto = double.Parse(Console.ReadLine());
+                            Console.WriteLine("---");
                             if (precioProducto < 0.00)
                             {
                                 Console.WriteLine("El precio del producto no puede ser negaticvo.");
@@ -66,16 +69,16 @@ namespace calculoImpuestos
                     }
 
 
-
-
                     int cantidadProducto = 0;
                     bool cantidadValido = false;
                     while (cantidadValido == false)
                     {
                         try
                         {
+                            
                             Console.WriteLine($"Introduce una cantidad a comprar del producto {nombreProducto}");
                             cantidadProducto = int.Parse(Console.ReadLine());
+                            Console.WriteLine("---");
                             if (cantidadProducto < 0.00)
                             {
                                 Console.WriteLine("La cantidad del producto no puede ser negativa.");
@@ -100,11 +103,14 @@ namespace calculoImpuestos
                     if(cantidadValido == true && precioValido == true)
                     {
                         listaProductos.Add(nombreProducto, (precioProducto, cantidadProducto));
-                        Console.WriteLine($"El Producto {nombreProducto} añadido correctamente con precio {precioProducto} y cantidad {cantidadProducto}");
+                        Console.WriteLine("---");
+                        Console.WriteLine($"El Producto {nombreProducto} añadido correctamente con precio {precioProducto}€ y cantidad {cantidadProducto} und");
+                        
                     }
 
-
+                    Console.WriteLine("---");
                     Console.WriteLine("¿Quieres agregar otro producto?");
+                    Console.WriteLine("---");
                     bool haRespondidoCorrectamente = false;
                     while(haRespondidoCorrectamente == false)
                     {
@@ -113,7 +119,6 @@ namespace calculoImpuestos
                         if (respuesteUsuario == "si")
                         {
                             haRespondidoCorrectamente = true;
-                            
                         } 
                         else if(respuesteUsuario == "no")
                         {
@@ -129,7 +134,9 @@ namespace calculoImpuestos
                 }
                 else
                 {
+                    Console.WriteLine("---");
                     Console.WriteLine("El producto ya existe, por favor ingrese un producto diferente");
+                    Console.WriteLine("---");
                 }
 
             }
@@ -137,11 +144,36 @@ namespace calculoImpuestos
 
             // Aquí ya empezamos a  colocar todos los productos y además calculamos el IVA, recorriendo el diccionario.
 
+            Console.WriteLine("Empezamos a calcular el total y los impuestos");
+            Console.WriteLine("---");
+            // Lo haremos mendiante un bucle for, sumaremos el total para posteriormente aplicar el IVA después
 
+            const double IVA = 0.21;
 
-            Console.WriteLine(listaProductos["Ejemplo1"]);
-            Console.WriteLine("Has seleccionado 1");
-            Console.WriteLine("Calculo impuesto");
+            double costoTotalCesta = 0.00;
+            double costoTotalCestaIVA = 0.00;
+
+            Console.WriteLine("La cesta ha sido:");
+            Console.WriteLine("---");
+
+            foreach (var producto in listaProductos)
+            {
+                string nombreProducto = producto.Key;
+                double precioProducto = producto.Value.precio;
+                int cantidadProducto = producto.Value.cantidad;
+                Console.WriteLine("---");
+                Console.WriteLine($"Nombre producto: {nombreProducto}, su precio {precioProducto}, la cantidad a comprar: {cantidadProducto}");
+
+                costoTotalCesta = (precioProducto * cantidadProducto) + costoTotalCesta;
+
+            }
+            Console.WriteLine("---");
+            Console.WriteLine($"El total ha sido de: {costoTotalCesta}");
+            costoTotalCestaIVA = (costoTotalCesta * IVA) + costoTotalCesta;
+            Console.WriteLine("---");
+            Console.WriteLine($"Aplicandose un impuesto de {IVA * 100}% nos queda un total a pagar de: {costoTotalCestaIVA}€");
+            Console.WriteLine("---");
+
         }
     }
 }
