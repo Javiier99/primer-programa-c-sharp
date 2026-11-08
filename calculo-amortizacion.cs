@@ -122,7 +122,7 @@ namespace calculo_amortizacion
                             Console.WriteLine("El periodo no puede ser 0");
                             Console.WriteLine("---");
                         }
-                        else if (periodosCogido > 360)
+                        else if (periodosCogido >= 360)
                         {
                             Console.WriteLine("---");
                             Console.WriteLine("El periodo no puede ser superior a 30 años o a 360 meses");
@@ -172,7 +172,7 @@ namespace calculo_amortizacion
                 Console.WriteLine("---");
                 var capitalActual = capitalCogido;
 
-                Console.WriteLine("| Mes | | Cuota | | Interés en eur W| | Capital Pendiente |");
+                Console.WriteLine("| Mes | | Cuota | | Interés en eur | | Capital Pendiente |");
                 for (var i = 0; i < periodosCogido; i++)
                 {
 
