@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace calculo_amortizacion
 {
     public class CalculoAmortizacion
@@ -9,6 +10,7 @@ namespace calculo_amortizacion
         public void calculoAmortizacionUsuario()
         {
             bool programaPrestamoActivado = true;
+            // Mientras el usuario quiera calcular prestamos, el programa seguirá activo
             while (programaPrestamoActivado == true)
             {
                 Console.WriteLine("Bienvenido al programa de calculo de amortización de un prestamo del tipo francés");
@@ -22,17 +24,16 @@ namespace calculo_amortizacion
 
                 // Escoger el capital
                 double capitalCogido = 0.00;
-                try
+                bool capitalCogidoCorrectamente = false;
+                
+
+                while (capitalCogidoCorrectamente == false)
                 {
-
-                    bool capitalCogidoCorrectamente = false;
-
-
-                    while (capitalCogidoCorrectamente == false)
+                    
+                    try
                     {
                         Console.WriteLine("¿Cual es el capital que deseas pedir?");
                         capitalCogido = double.Parse(Console.ReadLine());
-
                         if (capitalCogido > 0)
                         {
                             capitalCogidoCorrectamente = true;
@@ -44,29 +45,31 @@ namespace calculo_amortizacion
                             Console.WriteLine("---");
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("---");
+                        Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
+                        Console.WriteLine("---");
+                    }
+                }
 
 
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("---");
-                    Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
-                    Console.WriteLine("---");
-                }
+                
 
 
                 // Escoger el tipo de interés
                 double interesCogido = 0.00;
-                try
-                {
-                    bool interesCogidoCorrectamente = false;
+                
+                bool interesCogidoCorrectamente = false;
 
-                    while (interesCogidoCorrectamente == false)
+                while (interesCogidoCorrectamente == false)
+                {
+                    try
                     {
                         Console.WriteLine("Introduce el interés anual (por ejemplo, escribe 3.03 para un 3.03% sin el %)");
                         interesCogido = double.Parse(Console.ReadLine());
 
-                        if (interesCogido > 0 && interesCogido < 30) // Más de 30% en españa se considera abusivo
+                        if (interesCogido > 0 && interesCogido < 30) // Más de 30% en España se considera abusivo
                         {
                             interesCogidoCorrectamente = true;
                         }
@@ -89,25 +92,24 @@ namespace calculo_amortizacion
                             Console.WriteLine("---");
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("---");
+                        Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
+                        Console.WriteLine("---");
+                    }
+                }
 
 
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("---");
-                    Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
-                    Console.WriteLine("---");
-                }
+                
 
                 // Periodos del prestamo
                 int periodosCogido = 0;
-                try
+                bool periodosCogidoCorrectamente = false;
+
+                while (periodosCogidoCorrectamente == false)
                 {
-
-                    bool periodosCogidoCorrectamente = false;
-
-
-                    while (periodosCogidoCorrectamente == false)
+                    try
                     {
                         Console.WriteLine("Introduce el periodo en meses del prestamo");
                         periodosCogido = int.Parse(Console.ReadLine());
@@ -135,15 +137,15 @@ namespace calculo_amortizacion
                             Console.WriteLine("---");
                         }
                     }
-
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("---");
+                        Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
+                        Console.WriteLine("---");
+                    }
 
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("---");
-                    Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
-                    Console.WriteLine("---");
-                }
+             
 
 
                 // Calculo de la amortización mediante el método francés
@@ -162,7 +164,7 @@ namespace calculo_amortizacion
                 double cuotaPagarMensual = capitalCogido * ((interesDecimalesAnual * potenciaNumeradorDenominador) / (potenciaNumeradorDenominador - 1));
 
 
-                // Toca hacer la tabla del prestamo
+                // Tabla del prestamo
 
                 Console.WriteLine("---");
                 Console.WriteLine($"------ La cuota Mensual sale: {cuotaPagarMensual:F2} eur ------");
@@ -170,6 +172,7 @@ namespace calculo_amortizacion
                 Console.WriteLine("---");
                 Console.WriteLine("Tabla del prestamo:");
                 Console.WriteLine("---");
+
                 var capitalActual = capitalCogido;
 
                 Console.WriteLine("| Mes | | Cuota | | Interés en eur | | Capital Pendiente |");
@@ -181,7 +184,7 @@ namespace calculo_amortizacion
 
                     capitalActual = capitalActual - amortizacionCapital;
 
-                    // Mostramos todos los resultados de la tabla, en caso de los numeros usaremos :F2 para mostrar solo 2 decimales
+                    // Mostramos todos los resultados de la tabla, usaremos :F2 para mostrar solo 2 decimales
                     Console.WriteLine($"| {i + 1} | | {cuotaPagarMensual:F2} | | {interesesMes:F2} | | {capitalActual:F2} |");
 
 
@@ -205,7 +208,7 @@ namespace calculo_amortizacion
                     else if (calcularOtroPrestamo == "no")
                     {
                         programaPrestamoActivado = false;
-                        contestadoBienOtroPrestamo = true;
+                        contestadoBienOtroPrestamo = true; // Salimos del bucle y cerramos el programa
                     }
                     else
                     {

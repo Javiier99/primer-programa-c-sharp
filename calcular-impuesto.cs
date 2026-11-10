@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
+
 // Tema impuestos, no dice absolutamente nada de que tipo de impuesto, solo menciona IVA, por lo tanto deduzco que la idea es meter una serie de productos y calcular el
 // IVA, por lo que lo haré de esa manera
 
@@ -28,14 +29,15 @@ namespace calculoImpuestos
     
             bool introducirProductos = true;
             int contadorProducto = 0;
-            while(introducirProductos == true)
+            // Mientras el usuario quiera meter productos, el programa seguirá activo
+            while (introducirProductos == true)
             {
                 
                 Console.WriteLine($"Introduce el nombre de un nuevo producto");
                 string nombreProducto = Console.ReadLine();
              
 
-                if (!listaProductos.TryGetValue(nombreProducto, out var datosExistentesProductos))
+                if (!listaProductos.TryGetValue(nombreProducto, out var datosExistentesProductos)) // Si el producto no existe, lo añadimos al diccionario
                 {
                     contadorProducto++;
                     double precioProducto = 0.00;
@@ -123,7 +125,7 @@ namespace calculoImpuestos
                         else if(respuesteUsuario == "no")
                         {
                             haRespondidoCorrectamente = true;
-                            introducirProductos = false;
+                            introducirProductos = false; // Salimos del bucle y cerramos el programa
                         }
                         else
                         {
@@ -168,10 +170,10 @@ namespace calculoImpuestos
 
             }
             Console.WriteLine("---");
-            Console.WriteLine($"El total ha sido de: {costoTotalCesta}");
+            Console.WriteLine($"El total ha sido de: {costoTotalCesta} eur");
             costoTotalCestaIVA = (costoTotalCesta * IVA) + costoTotalCesta;
             Console.WriteLine("---");
-            Console.WriteLine($"Aplicandose un impuesto de {IVA * 100}% nos queda un total a pagar de: {costoTotalCestaIVA}€");
+            Console.WriteLine($"Aplicandose un impuesto de {IVA * 100}% nos queda un total a pagar de: {costoTotalCestaIVA} eur");
             Console.WriteLine("---");
 
         }

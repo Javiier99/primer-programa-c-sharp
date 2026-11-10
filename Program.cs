@@ -4,18 +4,16 @@ using System.Collections.Generic;
 using ValidadorUsuario;
 using calculoImpuestos;
 using calculo_amortizacion;
-// Enlace para el archivo donde se encuentra la tarea: https://drive.google.com/drive/folders/1P1jG2SzkiCPs1aCVluQhC3Ql6_NEIZcl
-
+using System.Globalization;
 
 // Aquí se encuentra el programa principal para toda la ejecución del proyecto.
-
-
 
 
 class Program
 {
     static void Main(string[] args)
     {
+        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         Console.WriteLine("Bienvenido a tu programa de gestión financiera.");
         Console.WriteLine("Debes de iniciar sesión.");
 
