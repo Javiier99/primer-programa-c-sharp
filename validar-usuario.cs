@@ -12,12 +12,13 @@ namespace ValidadorUsuario
 {
     public class validar_usuario
     {
-        const string nombreUsuarioBD = "usuario";
+        // Lo guardamos como constantes ya que es algo que no se cambiará
+        const string nombreUsuarioBD = "usuario"; 
         const string contraseñaUsuarioBD = "1234";
-        public bool validar(string nombreUsuario, string contraseñaUsuario)
+        public bool validar(string nombreUsuario, string contraseñaUsuario) // Creamos una función para validar si el usuario y contraseña colocado son correctos
         {
             bool usuarioValido = false;
-            if (nombreUsuario == nombreUsuarioBD && contraseñaUsuario == contraseñaUsuarioBD)
+            if (nombreUsuario == nombreUsuarioBD && contraseñaUsuario == contraseñaUsuarioBD) // En caso de ser correcto es valido en caso contrario no
             {
                 Console.WriteLine("Datos correctos, puedes pasar");
                 usuarioValido = true;
@@ -27,7 +28,7 @@ namespace ValidadorUsuario
                 Console.WriteLine("Lo siento, usuario o contraseña incorrectos");
             }
             
-            return usuarioValido;
+            return usuarioValido; // Retornaremos la variable usuarioValido independientemente del resultado
              
         }
     }

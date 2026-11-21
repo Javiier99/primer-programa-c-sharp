@@ -13,12 +13,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture; // Ponemos esto para indicar al programa que todo su funcionamiento sea neutro 
         Console.WriteLine("Bienvenido a tu programa de gestión financiera.");
         Console.WriteLine("Debes de iniciar sesión.");
 
         bool usuarioCorrecto = false;
-        while(usuarioCorrecto == false)
+        while(usuarioCorrecto == false) // Mientras que el usuario sea falso, seguirá el bucle y nunca saldrá
         {
             Console.WriteLine("Ingresa tu usuario");
             string nombreUsuario = Console.ReadLine().ToLower();
@@ -26,7 +26,7 @@ class Program
             Console.WriteLine("Ingresa tu contraseña");
             string contraseñaUsuario = Console.ReadLine().ToLower();
 
-            validar_usuario miValidadorUsuario = new validar_usuario();
+            validar_usuario miValidadorUsuario = new validar_usuario(); // Instanciaremos una clase de validar usuario para poder extraer la función en este caso de validar
             usuarioCorrecto = miValidadorUsuario.validar(nombreUsuario, contraseñaUsuario);
             
         }
@@ -34,7 +34,7 @@ class Program
         if(usuarioCorrecto == true)
         {
             bool cerrarPrograma = false;
-            while(cerrarPrograma == false)
+            while(cerrarPrograma == false) // Seguirá en bucle hasta que el usuario decida cerrar el programa
             {
                 Console.WriteLine("¿Que quieres hacer?");
                 Console.WriteLine("---");
@@ -70,13 +70,9 @@ class Program
                     }
 
                 }
-                catch (FormatException)
+                catch (Exception ex) // En caso de que haya cualquier error se ejecuta
                 {
-                    Console.WriteLine("Los valores deben de ser 1, 2 o 3");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Ha ocurrido un error inesperado {ex.Message}, vuelve a colocar un número del 1 al 3");
+                    Console.WriteLine($"Ha ocurrido un error inesperado, vuelve a colocar un número del 1 al 3");
                 } 
                 
 
@@ -88,7 +84,7 @@ class Program
         }
 
 
-        Console.ReadLine();
+
 
     }
 }

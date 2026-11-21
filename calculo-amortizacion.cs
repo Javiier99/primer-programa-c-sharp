@@ -30,7 +30,7 @@ namespace calculo_amortizacion
                 while (capitalCogidoCorrectamente == false)
                 {
                     
-                    try
+                    try // Debemos de asegurarnos de que el usuario no meta un caracter y además una cantidad superior a 0
                     {
                         Console.WriteLine("¿Cual es el capital que deseas pedir?");
                         capitalCogido = double.Parse(Console.ReadLine());
@@ -64,12 +64,12 @@ namespace calculo_amortizacion
 
                 while (interesCogidoCorrectamente == false)
                 {
-                    try
+                    try // A la hora de escoger el interes hay que tener en cuenta que 1 no puede ser negativo y 2 no puede ser superior al 30% en España se considera abusibo
                     {
                         Console.WriteLine("Introduce el interés anual (por ejemplo, escribe 3.03 para un 3.03% sin el %)");
                         interesCogido = double.Parse(Console.ReadLine());
 
-                        if (interesCogido > 0 && interesCogido < 30) // Más de 30% en España se considera abusivo
+                        if (interesCogido > 0 && interesCogido < 30)
                         {
                             interesCogidoCorrectamente = true;
                         }
@@ -92,7 +92,7 @@ namespace calculo_amortizacion
                             Console.WriteLine("---");
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) // En caso de que escriba algo que no sea un nummero
                     {
                         Console.WriteLine("---");
                         Console.WriteLine("Ha ocurrido un error, por favor vuelve a introducir la cantidad");
@@ -155,7 +155,7 @@ namespace calculo_amortizacion
                 // Formula del método frances: Capital * ((interes*(1+interes)^numero periodo)/(((1+interes)^numero periodo) -1))
 
 
-                double interesDecimalesAnual = (interesCogido / 100) / 12;
+                double interesDecimalesAnual = (interesCogido / 100) / 12;  
 
                 // Tenemos que usar Math.Pow() para poder sacar la potencia
                 double calculoNumeradorDenominador = 1 + interesDecimalesAnual;
@@ -167,7 +167,7 @@ namespace calculo_amortizacion
                 // Tabla del prestamo
 
                 Console.WriteLine("---");
-                Console.WriteLine($"------ La cuota Mensual sale: {cuotaPagarMensual:F2} eur ------");
+                Console.WriteLine($"------ La cuota Mensual sale: {cuotaPagarMensual:F2} eur ------"); // Usamos el F2 para redondear los decimales a 2
                 Console.WriteLine("---");
                 Console.WriteLine("---");
                 Console.WriteLine("Tabla del prestamo:");
@@ -176,7 +176,7 @@ namespace calculo_amortizacion
                 var capitalActual = capitalCogido;
 
                 Console.WriteLine("| Mes | | Cuota | | Interés en eur | | Capital Pendiente |");
-                for (var i = 0; i < periodosCogido; i++)
+                for (var i = 0; i < periodosCogido; i++) // Aquí nos encargamos de dos cosas, de pintar la tabla y además de calcular el capital actual en cada vuelta
                 {
 
                     double interesesMes = capitalActual * interesDecimalesAnual;
@@ -208,7 +208,7 @@ namespace calculo_amortizacion
                     else if (calcularOtroPrestamo == "no")
                     {
                         programaPrestamoActivado = false;
-                        contestadoBienOtroPrestamo = true; // Salimos del bucle y cerramos el programa
+                        contestadoBienOtroPrestamo = true; // Salimos del bucle y cerramos el programa de calculo de amortización
                     }
                     else
                     {

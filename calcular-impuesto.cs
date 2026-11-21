@@ -39,7 +39,7 @@ namespace calculoImpuestos
 
                 if (!listaProductos.TryGetValue(nombreProducto, out var datosExistentesProductos)) // Si el producto no existe, lo añadimos al diccionario
                 {
-                    contadorProducto++;
+                    contadorProducto++; // Necesitamos un contador para que el usuario sepa cuantos productos ha añadido, y así poder ponerlo en el mensaje de introducción del producto
                     double precioProducto = 0.00;
                     bool precioValido = false;
                     while (precioValido == false)
@@ -71,7 +71,7 @@ namespace calculoImpuestos
                     }
 
 
-                    int cantidadProducto = 0;
+                    int cantidadProducto = 0; // Necesitamos la variable para poder calcular la cantidad de producto que el usuario quiera añadir
                     bool cantidadValido = false;
                     while (cantidadValido == false)
                     {
@@ -102,16 +102,16 @@ namespace calculoImpuestos
                     }
 
 
-                    if(cantidadValido == true && precioValido == true)
+                    if(cantidadValido == true && precioValido == true) // Verificamos si el precio y la cantidad son validos, si lo son añadimos el producto al diccionario y mostramos el mensaje de confirmación
                     {
                         listaProductos.Add(nombreProducto, (precioProducto, cantidadProducto));
                         Console.WriteLine("---");
                         Console.WriteLine($"El Producto {nombreProducto} añadido correctamente con precio {precioProducto}€ y cantidad {cantidadProducto} und");
                         
                     }
-
+                    // Comprobamos si el usuario desea añadir otro producto
                     Console.WriteLine("---");
-                    Console.WriteLine("¿Quieres agregar otro producto?");
+                    Console.WriteLine("¿Quieres agregar otro producto?"); 
                     Console.WriteLine("---");
                     bool haRespondidoCorrectamente = false;
                     while(haRespondidoCorrectamente == false)
@@ -150,7 +150,7 @@ namespace calculoImpuestos
             Console.WriteLine("---");
             // Lo haremos mendiante un bucle for, sumaremos el total para posteriormente aplicar el IVA después
 
-            const double IVA = 0.21;
+            const double IVA = 0.21; // Guardamos el IVA en una variable constante ya que no se va a modificar
 
             double costoTotalCesta = 0.00;
             double costoTotalCestaIVA = 0.00;
@@ -158,7 +158,7 @@ namespace calculoImpuestos
             Console.WriteLine("La cesta ha sido:");
             Console.WriteLine("---");
 
-            foreach (var producto in listaProductos)
+            foreach (var producto in listaProductos) // Usamos foreach para recorrer todo el diccionario de productos e ir mostrando el nomre, precio y la cantidad
             {
                 string nombreProducto = producto.Key;
                 double precioProducto = producto.Value.precio;
@@ -166,12 +166,12 @@ namespace calculoImpuestos
                 Console.WriteLine("---");
                 Console.WriteLine($"Nombre producto: {nombreProducto}, su precio {precioProducto}, la cantidad a comprar: {cantidadProducto}");
 
-                costoTotalCesta = (precioProducto * cantidadProducto) + costoTotalCesta;
+                costoTotalCesta = (precioProducto * cantidadProducto) + costoTotalCesta; // Calculamos el costo total de la cista de la compra
 
             }
             Console.WriteLine("---");
             Console.WriteLine($"El total ha sido de: {costoTotalCesta} eur");
-            costoTotalCestaIVA = (costoTotalCesta * IVA) + costoTotalCesta;
+            costoTotalCestaIVA = (costoTotalCesta * IVA) + costoTotalCesta;  // Calculamos el total aplicado el IVA y sumado al total para tener el total a pagar con IVA incluido
             Console.WriteLine("---");
             Console.WriteLine($"Aplicandose un impuesto de {IVA * 100}% nos queda un total a pagar de: {costoTotalCestaIVA} eur");
             Console.WriteLine("---");
